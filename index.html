@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aegos Intel — Company Intelligence Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:              #0b1120;
+      --navy-card:         #141f35;
+      --navy-border:       rgba(255,255,255,0.09);
+      --navy-border-hover: rgba(255,255,255,0.18);
+      --white:             #ffffff;
+      --off-white:         rgba(255,255,255,0.92);
+      --sub:               rgba(255,255,255,0.72);   /* brighter subtext */
+      --muted:             rgba(255,255,255,0.45);
+      --accent-blue:       #2563eb;
+      --accent-blue-hover: #3b74f5;
+      --font: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--navy);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 60px;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(11,17,32,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--navy-border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-mark {
+      width: 30px;
+      height: 30px;
+      background: var(--white);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-text {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      color: var(--white);
+    }
+
+    .nav-logo-text span {
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+
+    .btn-ghost {
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+
+    .btn-primary {
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+      background: var(--accent-blue);
+      border: none;
+      cursor: pointer;
+      padding: 9px 20px;
+      border-radius: 9px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: -0.1px;
+    }
+    .btn-primary:hover { background: var(--accent-blue-hover); transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 40px 100px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(37,99,235,0.2) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+    }
+
+    /* Pill */
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--navy-border);
+      border-radius: 999px;
+      padding: 5px 14px 5px 8px;
+      margin-bottom: 36px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+
+    .hero-pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 3px rgba(16,185,129,0.25);
+    }
+
+    /* Headlines */
+    .hero-h1 {
+      font-size: clamp(50px, 7.5vw, 86px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -3px;
+      color: var(--white);
+      margin-bottom: 10px;
+      opacity: 0;
+      animation: fadeUp 0.65s ease 0.2s forwards;
+    }
+
+    .hero-h1-line2 {
+      font-size: clamp(46px, 7vw, 80px);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      color: var(--off-white);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.65s ease 0.3s forwards;
+    }
+
+    /* Subheadline — brighter */
+    .hero-sub {
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--sub);
+      max-width: 520px;
+      margin: 0 auto 44px;
+      opacity: 0;
+      animation: fadeUp 0.65s ease 0.4s forwards;
+    }
+
+    /* CTA input row */
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--navy-border);
+      border-radius: 13px;
+      padding: 6px 6px 6px 20px;
+      max-width: 460px;
+      margin: 0 auto;
+      transition: border-color 0.2s, background 0.2s;
+      opacity: 0;
+      animation: fadeUp 0.65s ease 0.5s forwards;
+    }
+    .hero-cta:focus-within {
+      border-color: var(--navy-border-hover);
+      background: rgba(255,255,255,0.09);
+    }
+
+    .hero-cta input {
+      flex: 1;
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--white);
+      background: none;
+      border: none;
+      outline: none;
+      min-width: 0;
+    }
+    .hero-cta input::placeholder { color: var(--muted); }
+
+    .hero-cta-btn {
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+      background: var(--accent-blue);
+      border: none;
+      cursor: pointer;
+      padding: 12px 22px;
+      border-radius: 9px;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: -0.1px;
+    }
+    .hero-cta-btn:hover { background: var(--accent-blue-hover); transform: scale(1.02); }
+
+    .hero-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 0.65s ease 0.6s forwards;
+    }
+
+    /* ─── BROWSER MOCK ─── */
+    .hero-preview {
+      position: relative;
+      z-index: 1;
+      margin-top: 72px;
+      max-width: 900px;
+      width: 100%;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.75s forwards;
+    }
+
+    .browser-frame {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--navy-border);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .browser-dots { display: flex; gap: 6px; }
+    .browser-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .browser-dot:nth-child(1) { background: #ff5f57; }
+    .browser-dot:nth-child(2) { background: #ffbd2e; }
+    .browser-dot:nth-child(3) { background: #28c840; }
+
+    .browser-url {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 6px;
+      padding: 4px 10px;
+      max-width: 240px;
+      margin: 0 auto;
+    }
+    .browser-url span { font-size: 12px; color: var(--muted); font-weight: 500; }
+
+    /* Dashboard */
+    .dashboard {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      min-height: 320px;
+    }
+
+    .dash-sidebar {
+      background: rgba(0,0,0,0.2);
+      border-right: 1px solid var(--navy-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 14px 0;
+    }
+
+    .dash-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+    }
+    .dash-icon.active { background: rgba(37,99,235,0.25); color: #60a5fa; }
+
+    .dash-main { padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+
+    .dash-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+
+    .dash-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--navy-border);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+
+    .dash-card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .dash-card-value {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--white);
+    }
+
+    .dash-card-delta {
+      font-size: 11px;
+      font-weight: 600;
+      color: #10b981;
+      margin-top: 3px;
+    }
+
+    .dash-companies {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--navy-border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .dash-companies-header {
+      padding: 9px 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--navy-border);
+    }
+
+    .dash-company-row {
+      display: grid;
+      grid-template-columns: 26px 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .dash-company-row:last-child { border-bottom: none; }
+
+    .dash-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 800;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .dash-company-name { font-weight: 600; color: var(--off-white); font-size: 12px; }
+    .dash-company-sector { font-size: 10px; color: var(--muted); margin-top: 1px; }
+
+    .dash-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .tag-green { background: rgba(16,185,129,0.15); color: #10b981; }
+    .tag-blue  { background: rgba(59,130,246,0.15);  color: #60a5fa; }
+    .tag-amber { background: rgba(251,191,36,0.15);  color: #fbbf24; }
+
+    .dash-raise { font-size: 12px; font-weight: 700; color: var(--white); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 20px 60px; }
+      .hero-h1 { letter-spacing: -2px; }
+      .hero-h1-line2 { letter-spacing: -1.5px; }
+      .hero-cta { max-width: 100%; }
+      .dash-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="8" width="3.5" height="7" rx="1" fill="#0b1120"/>
+        <rect x="6.25" y="4.5" width="3.5" height="10.5" rx="1" fill="#0b1120"/>
+        <rect x="11.5" y="1" width="3.5" height="14" rx="1" fill="#0b1120"/>
+      </svg>
+    </div>
+    <span class="nav-logo-text">Aegos <span>Intel</span></span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#">Companies</a></li>
+    <li><a href="#">Datasets</a></li>
+    <li><a href="#">Reports</a></li>
+    <li><a href="#">Pricing</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <a href="#" class="btn-ghost">Login</a>
+    <a href="#" class="btn-primary">Request Access</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-content">
+    <div class="hero-pill">
+      <div class="hero-pill-dot"></div>
+      Live data on 10,000+ companies globally
+    </div>
+
+    <h1 class="hero-h1">The Intelligence Layer</h1>
+    <p class="hero-h1-line2">for Company Research.</p>
+
+    <p class="hero-sub">
+      Discover, track, and analyze startups and growth-stage companies across emerging markets — powered by real data.
+    </p>
+
+    <div class="hero-cta">
+      <input type="email" placeholder="Work email" />
+      <button class="hero-cta-btn">Request Access</button>
+    </div>
+
+    <p class="hero-note">No credit card required &nbsp;·&nbsp; Free for early members</p>
+  </div>
+
+  <!-- Browser preview mock -->
+  <div class="hero-preview">
+    <div class="browser-frame">
+      <div class="browser-bar">
+        <div class="browser-dots">
+          <div class="browser-dot"></div>
+          <div class="browser-dot"></div>
+          <div class="browser-dot"></div>
+        </div>
+        <div class="browser-url">
+          <span>🔒 aegosintel.com</span>
+        </div>
+      </div>
+
+      <div class="dashboard">
+        <div class="dash-sidebar">
+          <div class="dash-icon active">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 16 16">
+              <rect x="1" y="6" width="3" height="9" rx="1"/><rect x="6" y="3" width="3" height="12" rx="1"/><rect x="11" y="1" width="3" height="14" rx="1"/>
+            </svg>
+          </div>
+          <div class="dash-icon">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 16 16">
+              <circle cx="8" cy="8" r="5.5"/><path d="M8 5.5v3l1.5 1.5"/>
+            </svg>
+          </div>
+          <div class="dash-icon">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 16 16">
+              <path d="M2 4h12M2 8h8M2 12h10"/>
+            </svg>
+          </div>
+          <div class="dash-icon">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 16 16">
+              <circle cx="7" cy="7" r="4"/><path d="M11 11l2.5 2.5"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="dash-main">
+          <div class="dash-row">
+            <div class="dash-card">
+              <div class="dash-card-label">Companies</div>
+              <div class="dash-card-value">10.4K</div>
+              <div class="dash-card-delta">↑ 284 this week</div>
+            </div>
+            <div class="dash-card">
+              <div class="dash-card-label">Total Funding</div>
+              <div class="dash-card-value">$84B</div>
+              <div class="dash-card-delta">↑ $1.2B new rounds</div>
+            </div>
+            <div class="dash-card">
+              <div class="dash-card-label">Markets</div>
+              <div class="dash-card-value">62</div>
+              <div class="dash-card-delta">↑ 3 added</div>
+            </div>
+          </div>
+
+          <div class="dash-companies">
+            <div class="dash-companies-header">Recently Added</div>
+            <div class="dash-company-row">
+              <div class="dash-avatar" style="background:#2563eb">AM</div>
+              <div><div class="dash-company-name">Aramis Health</div><div class="dash-company-sector">Healthtech · UAE</div></div>
+              <div class="dash-tag tag-green">Seed</div>
+              <div class="dash-raise">$4M</div>
+            </div>
+            <div class="dash-company-row">
+              <div class="dash-avatar" style="background:#7c3aed">NX</div>
+              <div><div class="dash-company-name">Nexara AI</div><div class="dash-company-sector">AI / ML · Singapore</div></div>
+              <div class="dash-tag tag-blue">Series A</div>
+              <div class="dash-raise">$18M</div>
+            </div>
+            <div class="dash-company-row">
+              <div class="dash-avatar" style="background:#059669">GV</div>
+              <div><div class="dash-company-name">GreenVault</div><div class="dash-company-sector">Fintech · Kenya</div></div>
+              <div class="dash-tag tag-amber">Pre-seed</div>
+              <div class="dash-raise">$800K</div>
+            </div>
+            <div class="dash-company-row">
+              <div class="dash-avatar" style="background:#dc2626">PL</div>
+              <div><div class="dash-company-name">Pólus Logistics</div><div class="dash-company-sector">Supply Chain · Brazil</div></div>
+              <div class="dash-tag tag-blue">Series B</div>
+              <div class="dash-raise">$42M</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
