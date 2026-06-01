@@ -118,7 +118,7 @@ p.sub {
 .coming-dot { width: 5px; height: 5px; border-radius: 50%; background: #999; animation: blink 2.4s ease-in-out infinite; }
 .coming-text { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(17,17,17,0.38); }
 
-/* ─── Mockup wrapper — sits flush after hero, peeks above fold ─── */
+/* ─── Mockup wrapper ─── */
 .mockup-wrapper {
   max-width: 1100px;
   margin: -60px auto 0;
@@ -129,7 +129,7 @@ p.sub {
 
 .mockup-frame {
   width: 100%;
-  border-radius: 14px 14px 0 0; /* flat bottom so it bleeds naturally */
+  border-radius: 14px 14px 0 0;
   overflow: hidden;
   box-shadow:
     0 2px 4px rgba(0,0,0,0.04),
@@ -172,7 +172,6 @@ p.sub {
 /* ─── Dashboard inside mockup ─── */
 .mockup-dash {
   display: flex;
-  /* Tall enough to show the full dashboard */
   height: 600px;
 }
 
@@ -380,9 +379,226 @@ p.sub {
   opacity: 0.55;
 }
 
+/* ─── Pricing ─── */
+.pricing-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 48px 120px;
+  opacity: 0;
+  animation: reveal 0.9s ease 0.8s forwards;
+}
+
+.pricing-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(17,17,17,0.38);
+  margin-bottom: 14px;
+}
+
+.pricing-heading {
+  font-family: 'Lora', Georgia, serif;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #111;
+  margin-bottom: 16px;
+}
+.pricing-heading em { font-style: italic; }
+
+.pricing-sub {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.72;
+  color: rgba(17,17,17,0.6);
+  max-width: 480px;
+  margin-bottom: 44px;
+}
+
+/* Toggle */
+.pricing-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 44px;
+}
+.toggle-btn {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 0.5px solid rgba(17,17,17,0.25);
+  background: transparent;
+  color: rgba(17,17,17,0.45);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.toggle-btn.active {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+.toggle-save {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: #639922;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.toggle-save.visible { opacity: 1; }
+
+/* Grid */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 1fr;
+  border: 0.5px solid rgba(17,17,17,0.14);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pricing-card {
+  padding: 36px 32px 40px;
+  border-right: 0.5px solid rgba(17,17,17,0.14);
+  position: relative;
+}
+.pricing-card:last-child { border-right: none; }
+.pricing-card.featured { background: #111; }
+
+.card-tier {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(17,17,17,0.38);
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pricing-card.featured .card-tier { color: rgba(255,255,255,0.38); }
+
+.early-badge {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: #97C459;
+  color: #27500A;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.card-price {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 52px;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #111;
+  margin-bottom: 6px;
+}
+.pricing-card.featured .card-price { color: #fff; }
+.card-price sup {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  vertical-align: super;
+  letter-spacing: 0;
+}
+
+.card-price-note {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: rgba(17,17,17,0.38);
+  margin-bottom: 32px;
+}
+.pricing-card.featured .card-price-note { color: rgba(255,255,255,0.32); }
+
+.card-divider {
+  border: none;
+  border-top: 0.5px solid rgba(17,17,17,0.10);
+  margin-bottom: 26px;
+}
+.pricing-card.featured .card-divider { border-color: rgba(255,255,255,0.12); }
+
+.card-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(17,17,17,0.72);
+  margin-bottom: 13px;
+}
+.pricing-card.featured .card-feature { color: rgba(255,255,255,0.72); }
+
+.feature-check {
+  font-size: 13px;
+  color: #639922;
+  margin-top: 1px;
+  flex-shrink: 0;
+  line-height: 1.55;
+}
+.feature-dash {
+  font-size: 13px;
+  color: rgba(17,17,17,0.2);
+  margin-top: 1px;
+  flex-shrink: 0;
+  line-height: 1.55;
+}
+.pricing-card.featured .feature-dash { color: rgba(255,255,255,0.18); }
+.feature-off { color: rgba(17,17,17,0.28); }
+.pricing-card.featured .feature-off { color: rgba(255,255,255,0.28); }
+
+.card-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  width: 100%;
+  border: 0.5px solid rgba(17,17,17,0.25);
+  background: transparent;
+  color: #111;
+  transition: background 0.15s, transform 0.15s;
+}
+.card-cta:hover { background: rgba(17,17,17,0.06); transform: translateY(-1px); }
+.pricing-card.featured .card-cta {
+  background: #fff;
+  color: #111;
+  border-color: transparent;
+}
+.pricing-card.featured .card-cta:hover { background: #E8E5DF; }
+
+.pricing-footnote {
+  margin-top: 32px;
+  font-size: 12px;
+  color: rgba(17,17,17,0.35);
+  text-align: center;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+}
+
+/* ─── Animations ─── */
 @keyframes reveal { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes blink  { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
+/* ─── Mobile ─── */
 @media (max-width: 780px) {
   .nav-links { display: none; }
   .nav-inner, .hero-inner { padding-left: 24px; padding-right: 24px; }
@@ -395,6 +611,11 @@ p.sub {
   .m-page-title { font-size: 22px; }
   .m-intel-title { flex: 0 0 100px; font-size: 16px; }
   .m-intel-link { font-size: 10px; }
+  .pricing-section { padding: 60px 24px 80px; }
+  .pricing-grid { grid-template-columns: 1fr; border-radius: 4px; }
+  .pricing-card { border-right: none; border-bottom: 0.5px solid rgba(17,17,17,0.14); }
+  .pricing-card:last-child { border-bottom: none; }
+  .pricing-card.featured { order: -1; }
 }
 </style>
 </head>
@@ -406,7 +627,7 @@ p.sub {
     <ul class="nav-links">
       <li><a href="#">Product</a></li>
       <li><a href="#">Data</a></li>
-      <li><a href="#">Pricing</a></li>
+      <li><a href="#pricing">Pricing</a></li>
       <li><a href="#">Docs</a></li>
     </ul>
     <span class="nav-right">aegosintel.com</span>
@@ -475,7 +696,6 @@ p.sub {
   <div class="mockup-wrapper">
     <div class="mockup-frame">
 
-      <!-- Browser chrome -->
       <div class="mockup-chrome">
         <div class="chrome-dots">
           <div class="chrome-dot red"></div>
@@ -486,10 +706,8 @@ p.sub {
         <div style="width:72px"></div>
       </div>
 
-      <!-- Dashboard -->
       <div class="mockup-dash">
 
-        <!-- Sidebar — exact match to real dashboard -->
         <div class="m-sidebar">
           <div class="m-nav-dot active">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
@@ -508,10 +726,8 @@ p.sub {
           </div>
         </div>
 
-        <!-- Main -->
         <div class="m-main">
 
-          <!-- Top nav -->
           <div class="m-topnav">
             <span class="m-tnav-link active">COMPANY DATA</span>
             <span class="m-tnav-link">DEALS</span>
@@ -519,7 +735,6 @@ p.sub {
             <span class="m-tnav-link">RESOURCES ▾</span>
           </div>
 
-          <!-- Content -->
           <div class="m-content">
 
             <div class="m-page-header">
@@ -544,12 +759,9 @@ p.sub {
               <div class="m-chart-body">
                 <div class="m-heatmap" id="mHeatmap"></div>
                 <svg class="m-line-svg" viewBox="0 0 1000 200" preserveAspectRatio="none">
-                  <!-- Highlight zone Q3 region cols ~33-50% -->
                   <rect x="300" y="0" width="210" height="200" fill="rgba(120,190,90,0.10)" rx="1"/>
-                  <!-- Wave line matching the real dashboard shape -->
                   <path d="M0,130 C40,128 80,120 120,108 C160,96 200,84 240,76 C280,68 310,66 340,68 C370,70 390,74 420,80 C450,86 470,98 500,110 C530,122 560,128 600,126 C640,124 680,118 720,114 C760,110 800,108 840,106 C880,104 920,100 960,96 C980,94 990,93 1000,92"
                     fill="none" stroke="#1A1814" stroke-width="1.5"/>
-                  <!-- Dots on the line -->
                   <circle cx="0"    cy="130" r="3" fill="#1A1814"/>
                   <circle cx="120"  cy="108" r="3" fill="#1A1814"/>
                   <circle cx="240"  cy="76"  r="3" fill="#1A1814"/>
@@ -573,7 +785,6 @@ p.sub {
               </div>
             </div>
 
-            <!-- Intel & Analysis -->
             <div class="m-intel">
               <div class="m-intel-title">Intel &amp;<br>Analysis</div>
               <div class="m-intel-links">
@@ -590,11 +801,89 @@ p.sub {
               </div>
             </div>
 
-          </div><!-- /.m-content -->
-        </div><!-- /.m-main -->
-      </div><!-- /.mockup-dash -->
-    </div><!-- /.mockup-frame -->
-  </div><!-- /.mockup-wrapper -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Pricing ─── -->
+  <section id="pricing" class="pricing-section">
+
+    <div class="pricing-eyebrow">Pricing</div>
+    <h2 class="pricing-heading">Simple, transparent <em>pricing.</em></h2>
+    <p class="pricing-sub">Start free. Upgrade when you need depth. Lock in lifetime access at the early bird rate — this offer won't last.</p>
+
+    <div class="pricing-toggle">
+      <button class="toggle-btn active" id="btn-monthly" onclick="setPricing('monthly')">Monthly</button>
+      <button class="toggle-btn" id="btn-annual" onclick="setPricing('annual')">Annual</button>
+      <span class="toggle-save" id="toggle-save">Save 25%</span>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- Free -->
+      <div class="pricing-card">
+        <div class="card-tier">Free</div>
+        <div class="card-price"><sup>$</sup><span id="price-free">0</span></div>
+        <div class="card-price-note">Forever free</div>
+        <hr class="card-divider">
+        <div class="card-feature"><span class="feature-check">✓</span> 5 company lookups / month</div>
+        <div class="card-feature"><span class="feature-check">✓</span> Basic company profile</div>
+        <div class="card-feature"><span class="feature-check">✓</span> 1 watchlist</div>
+        <div class="card-feature"><span class="feature-dash">—</span> <span class="feature-off">AI-parsed intel</span></div>
+        <div class="card-feature"><span class="feature-dash">—</span> <span class="feature-off">Deal signals</span></div>
+        <div class="card-feature"><span class="feature-dash">—</span> <span class="feature-off">Investor data</span></div>
+        <a href="#" class="card-cta">
+          Get started
+          <svg width="12" height="12" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <!-- Early Bird -->
+      <div class="pricing-card featured">
+        <div class="card-tier">Early Bird <span class="early-badge">Beta</span></div>
+        <div class="card-price" style="color:#fff"><sup>$</sup><span id="price-eb">299</span></div>
+        <div class="card-price-note" id="note-eb">One-time · Lifetime access</div>
+        <hr class="card-divider">
+        <div class="card-feature"><span class="feature-check">✓</span> Unlimited company lookups</div>
+        <div class="card-feature"><span class="feature-check">✓</span> Full AI-parsed intel</div>
+        <div class="card-feature"><span class="feature-check">✓</span> Deal flow signals</div>
+        <div class="card-feature"><span class="feature-check">✓</span> Investor database</div>
+        <div class="card-feature"><span class="feature-check">✓</span> Unlimited watchlists</div>
+        <div class="card-feature"><span class="feature-check">✓</span> All Pro features, forever</div>
+        <a href="#" class="card-cta">
+          Claim early bird
+          <svg width="12" height="12" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <!-- Pro -->
+      <div class="pricing-card">
+        <div class="card-tier">Pro</div>
+        <div class="card-price"><sup>$</sup><span id="price-pro">79</span></div>
+        <div class="card-price-note" id="note-pro">per month</div>
+        <hr class="card-divider">
+        <div class="card-feature"><span class="feature-check">✓</span> Unlimited company lookups</div>
+        <div class="card-feature"><span class="feature-check">✓</span> Full AI-parsed intel</div>
+        <div class="card-feature"><span class="feature-check">✓</span> Deal flow signals</div>
+        <div class="card-feature"><span class="feature-check">✓</span> Investor database</div>
+        <div class="card-feature"><span class="feature-check">✓</span> Unlimited watchlists</div>
+        <div class="card-feature"><span class="feature-dash">—</span> <span class="feature-off">Priority support</span></div>
+        <a href="#" class="card-cta">
+          Start free trial
+          <svg width="12" height="12" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+    </div>
+
+    <p class="pricing-footnote">
+      Early bird pricing is locked in at beta — price rises to $149/mo at launch.<br>
+      No credit card required for the free tier.
+    </p>
+
+  </section>
 
 </main>
 
@@ -603,69 +892,65 @@ p.sub {
 (function() {
   const heatmap = document.getElementById('mHeatmap');
   if (!heatmap) return;
-
-  const COLS = 24;
-  const ROWS = 6;
-
-  // Exact colour stops from the real dashboard
+  const COLS = 24, ROWS = 6;
   const palettes = {
-    low:    [240, 245, 225], // pale yellow-green
-    midLow: [210, 235, 185], // soft green
-    mid:    [155, 210, 130], // medium green
-    high:   [ 90, 175,  75], // vivid green
-    vhigh:  [ 55, 150,  50], // deep green
+    low:    [240, 245, 225],
+    midLow: [210, 235, 185],
+    mid:    [155, 210, 130],
+    high:   [ 90, 175,  75],
+    vhigh:  [ 55, 150,  50],
   };
-
   function lerp(a, b, t) { return a.map((v, i) => Math.round(v + (b[i] - v) * t)); }
-
-  function cellColor(col, row) {
-    // Highlight zone: cols 8–13 (Q3 area), matching the real dashboard
-    const inHighlight = col >= 8 && col <= 13;
-    // Secondary highlight: cols 13-15 (slight extension right)
+  function cellColor(col) {
+    const inHighlight  = col >= 8 && col <= 13;
     const inHighlight2 = col >= 13 && col <= 15;
-
     let intensity;
-    if (inHighlight) {
-      intensity = 0.45 + Math.random() * 0.5;
-    } else if (inHighlight2) {
-      intensity = 0.25 + Math.random() * 0.4;
-    } else {
-      intensity = 0.02 + Math.random() * 0.28;
-    }
-
+    if (inHighlight)       intensity = 0.45 + Math.random() * 0.5;
+    else if (inHighlight2) intensity = 0.25 + Math.random() * 0.4;
+    else                   intensity = 0.02 + Math.random() * 0.28;
     let c;
     if (intensity < 0.2)       c = lerp(palettes.low,    palettes.midLow, intensity / 0.2);
     else if (intensity < 0.45) c = lerp(palettes.midLow, palettes.mid,    (intensity - 0.2)  / 0.25);
     else if (intensity < 0.7)  c = lerp(palettes.mid,    palettes.high,   (intensity - 0.45) / 0.25);
     else                       c = lerp(palettes.high,   palettes.vhigh,  (intensity - 0.7)  / 0.30);
-
     return `rgb(${c[0]},${c[1]},${c[2]})`;
   }
-
   for (let r = 0; r < ROWS; r++) {
     const row = document.createElement('div');
     row.className = 'm-hm-row';
     for (let c = 0; c < COLS; c++) {
       const cell = document.createElement('div');
       cell.className = 'm-hm-cell';
-      cell.style.background = cellColor(c, r);
+      cell.style.background = cellColor(c);
       row.appendChild(cell);
     }
     heatmap.appendChild(row);
   }
-
-  // X month labels
-  const months = ['J','F','M','A','M','J','J','A','S','O','N','D',
-                   'J','F','M','A','M','J','J','A','S','O','N','D'];
+  const months = ['J','F','M','A','M','J','J','A','S','O','N','D','J','F','M','A','M','J','J','A','S','O','N','D'];
   const xMonths = document.getElementById('mXMonths');
-  if (xMonths) {
-    months.forEach(m => {
-      const s = document.createElement('span');
-      s.textContent = m;
-      xMonths.appendChild(s);
-    });
-  }
+  if (xMonths) months.forEach(m => { const s = document.createElement('span'); s.textContent = m; xMonths.appendChild(s); });
 })();
+
+// ─── Pricing toggle ───
+function setPricing(mode) {
+  const btnMo  = document.getElementById('btn-monthly');
+  const btnYr  = document.getElementById('btn-annual');
+  const save   = document.getElementById('toggle-save');
+  const pPro   = document.getElementById('price-pro');
+  const nPro   = document.getElementById('note-pro');
+
+  if (mode === 'annual') {
+    btnMo.classList.remove('active'); btnYr.classList.add('active');
+    save.classList.add('visible');
+    pPro.textContent = '59';
+    nPro.textContent = 'per month, billed annually';
+  } else {
+    btnYr.classList.remove('active'); btnMo.classList.add('active');
+    save.classList.remove('visible');
+    pPro.textContent = '79';
+    nPro.textContent = 'per month';
+  }
+}
 </script>
 
 </body>
